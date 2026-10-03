@@ -14,21 +14,18 @@ public_users.post("/register", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  // Check if username and password were provided
   if (!username || !password) {
     return res.status(400).json({
       message: "Username and password are required."
     });
   }
 
-  // Check if user already exists
   if (isValid(username)) {
     return res.status(409).json({
       message: "User already exists!"
     });
   }
 
-  // Add new user
   users.push({
     username: username,
     password: password
@@ -178,6 +175,29 @@ const getBookByISBNAsync = async (isbn) => {
 };
 
 
+// Task 12 - Get book details by Author using Async/Await with Axios
+const getBooksByAuthorAsync = async (author) => {
+
+  try {
+
+    const response = await axios.get(
+      `http://localhost:5000/author/${encodeURIComponent(author)}`
+    );
+
+    console.log(response.data);
+
+    return response.data;
+
+  } catch (error) {
+
+    console.error(error.message);
+
+  }
+
+};
+
+
 module.exports.general = public_users;
 module.exports.getAllBooksAsync = getAllBooksAsync;
 module.exports.getBookByISBNAsync = getBookByISBNAsync;
+module.exports.getBooksByAuthorAsync = getBooksByAuthorAsync;
