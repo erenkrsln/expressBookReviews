@@ -197,7 +197,30 @@ const getBooksByAuthorAsync = async (author) => {
 };
 
 
+// Task 13 - Get book details by Title using Async/Await with Axios
+const getBooksByTitleAsync = async (title) => {
+
+  try {
+
+    const response = await axios.get(
+      `http://localhost:5000/title/${encodeURIComponent(title)}`
+    );
+
+    console.log(response.data);
+
+    return response.data;
+
+  } catch (error) {
+
+    console.error(error.message);
+
+  }
+
+};
+
+
 module.exports.general = public_users;
 module.exports.getAllBooksAsync = getAllBooksAsync;
 module.exports.getBookByISBNAsync = getBookByISBNAsync;
 module.exports.getBooksByAuthorAsync = getBooksByAuthorAsync;
+module.exports.getBooksByTitleAsync = getBooksByTitleAsync;
